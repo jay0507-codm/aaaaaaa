@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Para Ti</title>
+    <style>
+        :root { --p-dark: #4a148c; --p-light: #9c27b0; --green: #2e7d32; }
+        body { 
+            background: radial-gradient(circle, #1a012e, #050108); 
+            margin: 0; height: 100vh; display: flex; 
+            flex-direction: column; justify-content: center; 
+            align-items: center; overflow: hidden; font-family: 'serif';
+        }
+
+        /* Estrellas */
+        .stars { position: absolute; width: 100%; height: 100%; z-index: 0; }
+        .star { position: absolute; background: white; border-radius: 50%; animation: twinkle 2s infinite; }
+
+        .mensaje {
+            color: white; font-size: 2.2rem; text-align: center; opacity: 0;
+            text-shadow: 0 0 20px var(--p-light); z-index: 10;
+            animation: aparecer 4s forwards 3s; position: absolute; top: 15%;
+        }
+
+        .rosa { position: relative; width: 100px; height: 100px; z-index: 5; }
+        .petalo {
+            position: absolute; bottom: 50%; left: 50%;
+            background: linear-gradient(var(--p-light), var(--p-dark));
+            border-radius: 50% 50% 10% 10%; transform-origin: bottom center;
+            opacity: 0; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        .tallo {
+            width: 8px; height: 200px; background: linear-gradient(to bottom, var(--green), #1b5e20);
+            border-radius: 4px; position: relative; z-index: 4; margin-top: -10px;
+            animation: crecer 2s ease-out;
+        }
+
+        @keyframes abrir { to { transform: rotate(var(--rot)) scale(1.6) translateY(-30px); opacity: 0.9; } }
+        @keyframes crecer { from { height: 0; } to { height: 200px; } }
+        @keyframes aparecer { to { opacity: 1; } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        /* Pétalos con delay */
+        .p1 { width: 40px; height: 65px; --rot: 0deg; animation: abrir 3s forwards 1s; }
+        .p2 { width: 45px; height: 70px; --rot: 45deg; animation: abrir 3s forwards 1.2s; }
+        .p3 { width: 45px; height: 70px; --rot: 90deg; animation: abrir 3s forwards 1.4s; }
+        .p4 { width: 45px; height: 70px; --rot: 135deg; animation: abrir 3s forwards 1.6s; }
+        .p5 { width: 45px; height: 70px; --rot: 180deg; animation: abrir 3s forwards 1.8s; }
+        .p6 { width: 45px; height: 70px; --rot: 225deg; animation: abrir 3s forwards 2s; }
+        .p7 { width: 45px; height: 70px; --rot: 270deg; animation: abrir 3s forwards 2.2s; }
+        .p8 { width: 45px; height: 70px; --rot: 315deg; animation: abrir 3s forwards 2.4s; }
+
+        .btn-play {
+            background: white; border: none; padding: 10px 20px; border-radius: 20px;
+            cursor: pointer; position: absolute; bottom: 50px; z-index: 100;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="star-container"></div>
+    <div class="mensaje">Te quiero mucho</div>
+    
+    <div class="rosa">
+        <div class="petalo p1"></div><div class="petalo p2"></div>
+        <div class="petalo p3"></div><div class="petalo p4"></div>
+        <div class="petalo p5"></div><div class="petalo p6"></div>
+        <div class="petalo p7"></div><div class="petalo p8"></div>
+    </div>
+    <div class="tallo"></div>
+
+    <button class="btn-play" onclick="activar()">Clic para florecer 🌸</button>
+
+    <audio id="musica" loop>
+        <source src="Dardos.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        function activar() {
+            document.getElementById('musica').play();
+            document.querySelector('.btn-play').style.display = 'none';
+        }
+
+        // Crear estrellas aleatorias
+        const container = document.getElementById('star-container');
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(star);
+        }
+    </script>
+</body>
+</html>
